@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 function App() {
     const [count, setCount] = useState(0);
     const [isOn, setIsOn] = useState(false);
 
+    useEffect(() => {
+        document.title = `clicked ${count} times`
+    });
     const handleClick = () => {
         setCount(prevState => prevState + 1);
     };
