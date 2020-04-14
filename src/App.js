@@ -3,17 +3,29 @@ import React, { useState, useEffect } from 'react';
 function App() {
     const [count, setCount] = useState(0);
     const [isOn, setIsOn] = useState(false);
+    const [ mousePosition, setMousePosition ] = useState({x :null, y: null});
 
     useEffect(() => {
-        document.title = `clicked ${count} times`
-    });
+        document.title = `clicked ${count} times`;
+        window.addEventListener('mousemove', handleMouseMove);
+
+        return () => {
+            window.addEventListener('mousemove', handleMouseMove)
+        }
+    }, [count]);
     const handleClick = () => {
         setCount(prevState => prevState + 1);
     };
-
     const handleChangeLight = () => {
       setIsOn(prevState => !prevState)
     };
+    const handleMouseMove = event => {
+        setMousePosition( {
+            x: event.pageX,
+            y: event.pageY,
+        })
+    };
+
 
   return (
     <div className="App">
@@ -33,6 +45,9 @@ function App() {
                     : "https://icon.now.sh/highlight/aaa"
             }
         />
+        <h2>MousePosition</h2>
+        {JSON.stringify(mousePosition, null, 2)}
+        <br/>
     </div>
   );
 }
