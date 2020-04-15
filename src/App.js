@@ -1,6 +1,7 @@
 import React, { useContext, useReducer}  from 'react';
 
 import ToDoList from './components/ToDoList/ToDoList'
+import { ToDoForm } from "./components/ToDoList/ToDoForm";
 import { TodosContext } from './context';
 import { todosReducer } from './reducer';
 
@@ -17,6 +18,7 @@ export default function App () {
 
     return (
         <TodosContext.Provider value={{state, dispatch}}>
+            <ToDoForm/>
             <ToDoList/>
         </TodosContext.Provider>
     )

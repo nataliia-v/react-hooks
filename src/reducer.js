@@ -1,8 +1,23 @@
-import { TOGGLE_TODO, REMOVE_TODO } from './constsnts';
+import uuidv4 from 'uuid/v4'
+
+import { TOGGLE_TODO, REMOVE_TODO, ADD_TODO } from './constsnts';
 
 export const todosReducer = (state, action) => {
 
     switch (action.type) {
+
+        case ADD_TODO:
+
+            const newTodo = {
+                id: uuidv4(),
+                text: action.payload,
+                complete: false
+            };
+
+            return {
+                ...state,
+                todos: [...state.todos, newTodo]
+            };
 
         case TOGGLE_TODO:
             const toggledTodos = state.todos.map(
