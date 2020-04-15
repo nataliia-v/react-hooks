@@ -9,6 +9,7 @@ export default function AxiosRequests () {
     const [results, setResults] = useState([]);
     const [query, setQuery] = useState('reacthooks');
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
     const searchInputRef = useRef();
 
     useEffect( () => {
@@ -17,8 +18,15 @@ export default function AxiosRequests () {
 
     const getResults = async () => {
         setLoading(true);
-        const response = await axios.get(`http://hn.algolia.com/api/v1/search?query=${query}`);
-        setResults(response.data.hits);
+        
+        try {
+            const response = await axios.get(`http://hn.algolia.com/api/v1/search?query=${query}`);
+            setResults(response.data.hits);
+        } catch (e) {
+            setError(e)
+        }
+        
+        
         setLoading(false);
     };
     const handleSearch = (event)=> {
@@ -54,7 +62,7 @@ export default function AxiosRequests () {
                 </ul>)
             }
 
-
+            {error && <div>{error.message}</div>}
 
         </>
     )
