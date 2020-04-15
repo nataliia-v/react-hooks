@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import axios from 'axios';
 // import Login from './components/start/Login';
 // import RegisterForm from './components/start/RegisterForm';
@@ -8,6 +8,7 @@ export default function AxiosRequests () {
 
     const [results, setResults] = useState([]);
     const [query, setQuery] = useState('reacthooks');
+    const searchInputRef = useRef();
 
     useEffect( () => {
         getResults();
@@ -21,12 +22,22 @@ export default function AxiosRequests () {
         event.preventDefault();
         getResults();
     };
+    const handleClearSearch = () => {
+        setQuery('');
+        searchInputRef.current.focus();
+    };
 
     return (
         <>
             <form onSubmit={handleSearch}>
-                <input type="text" onChange={(event) => setQuery(event.target.value)} value={query}/>
-                <button type="submit">search</button>
+                <input
+                    type="text"
+                    onChange={(event) => setQuery(event.target.value)}
+                    value={query}
+                    ref={searchInputRef}
+                />
+                <button type="submit">Search</button>
+                <button type="button" onClick={handleClearSearch}>Clear</button>
             </form>
 
             <ul>
