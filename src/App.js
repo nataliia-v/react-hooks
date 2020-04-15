@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useContext, useReducer}  from 'react';
 
-import Application from './components/completeCRUDApp/App'
+import ToDoList from './components/ToDoList/ToDoList'
+import { TodosContext } from './context';
+import { todosReducer } from './reducer';
+
 
 // import AxiosRequests from './components/requests/AxiosRequests';
 // import Login from './components/start/Login';
@@ -9,9 +12,12 @@ import Application from './components/completeCRUDApp/App'
 
 export default function App () {
 
+    const initialState = useContext(TodosContext);
+    const [state, dispatch] = useReducer(todosReducer, initialState);
+
     return (
-        <div>
-            <Application/>
-        </div>
+        <TodosContext.Provider value={{state, dispatch}}>
+            <ToDoList/>
+        </TodosContext.Provider>
     )
 };

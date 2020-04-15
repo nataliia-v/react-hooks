@@ -6,11 +6,11 @@ import { UserContext } from '../../index'
 
 import './index.css';
 
-export const initialState = {
+const initialState = {
     count: 0,
 };
 
-export const reducer = (state, action) => {
+const reducer = (state, action) => {
 
     switch (action.type) {
         case 'increment':
@@ -30,7 +30,7 @@ export const reducer = (state, action) => {
     }
 };
 
-export default function Application () {
+export default function HooksCounter () {
 
     const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -45,8 +45,6 @@ export default function Application () {
                 <button className="border p-1" onClick={()=> dispatch({type: 'decrement'})}>decrement</button>
                 <button className="border p-1" onClick={()=> dispatch({type: 'reset'})}>reset</button>
             </div>
-
-
             <Navbar/>
         </div>
     )
