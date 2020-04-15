@@ -1,7 +1,7 @@
-import React, { useContext, useReducer } from 'react';
+import React, { useContext } from 'react';
 
 import { TodosContext } from "../../context";
-import { TOGGLE_TODO } from '../../constsnts';
+import { TOGGLE_TODO, REMOVE_TODO } from '../../constsnts';
 
 
 export default function ToDoList () {
@@ -18,7 +18,7 @@ export default function ToDoList () {
                         <button>
                             <img src="https://icon.now.sh/edit/0050c5" alt="Edit icon" className="h-6"/>
                         </button>
-                        <button>
+                        <button onClick={()=> dispatch({ type: REMOVE_TODO, payload: todo})}>
                             <img src="https://icon.now.sh/delete/8b0000" alt="Delete icon" className="h-6"/>
                         </button>
                     </li>

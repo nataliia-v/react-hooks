@@ -1,4 +1,4 @@
-import { TOGGLE_TODO } from './constsnts';
+import { TOGGLE_TODO, REMOVE_TODO } from './constsnts';
 
 export const todosReducer = (state, action) => {
 
@@ -13,6 +13,14 @@ export const todosReducer = (state, action) => {
             return {
                ...state,
                todos: toggledTodos
+            };
+        case REMOVE_TODO:
+            const filteredTodos = state.todos.filter(
+                todo => todo.id !== action.payload.id
+            );
+            return {
+                ...state,
+                todos: filteredTodos
             };
         default:
             return state
