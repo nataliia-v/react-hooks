@@ -13,6 +13,9 @@ export const todosReducer = (state, action) => {
     switch (action.type) {
 
         case ADD_TODO:
+            if (!action.payload || state.todos.findIndex(todo => todo.text === action.payload) > -1) {
+                return state
+            }
 
             const newTodo = {
                 id: uuidv4(),
@@ -39,8 +42,10 @@ export const todosReducer = (state, action) => {
             const filteredTodos = state.todos.filter(
                 todo => todo.id !== action.payload.id
             );
+            const isRemovedTodo = state.currentTodo.id === action.payload.id ? {} : state.currentTodo;
             return {
                 ...state,
+                currentTodo: isRemovedTodo,
                 todos: filteredTodos
             };
         case SET_CURRENT_TODO:
@@ -49,6 +54,9 @@ export const todosReducer = (state, action) => {
                 currentTodo: action.payload
             };
         case UPDATE_TODO:
+            if (!action.payload || state.todos.findIndex(todo => todo.text === action.payload) > -1) {
+                return state
+            }
             const updatedTodo = { ...state.currentTodo, text: action.payload };
             const updatedTodoIndex = state.todos.findIndex(todo => todo.id === state.currentTodo.id);
             const updatedTodos = [
