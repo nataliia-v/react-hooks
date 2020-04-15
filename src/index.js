@@ -4,10 +4,16 @@ import App from './App';
 
 import * as serviceWorker from './serviceWorker';
 
+export const UserContext = React.createContext();
+
+const username = 'Nataliia';
+
 ReactDOM.render(
-  <React.StrictMode>
+  <UserContext.Provider value={{
+      username: username
+  }}>
     <App />
-  </React.StrictMode>,
+  </UserContext.Provider>,
   document.getElementById('root')
 );
 
