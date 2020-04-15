@@ -1,17 +1,23 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 
 import {TodosContext} from "../../context";
-import {ADD_TODO, TOGGLE_TODO} from '../../constsnts';
+import { ADD_TODO, UPDATE_TODO } from '../../constsnts';
 
 
 export const ToDoForm = () => {
-    const { dispatch } = useContext(TodosContext);
+    const { state: { currentTodo = {} }, dispatch } = useContext(TodosContext);
     const [todo, setTodo] = useState('');
+
+    useEffect(() => {
+        if (currentTodo.text) {
+            setTodo(currentTodo.text)
+        }
+    }, [currentTodo.id]);
 
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        dispatch({type: ADD_TODO, payload: todo});
+        currentTodo.text ? dispatch({type: UPDATE_TODO, payload: todo}) : dispatch({type: ADD_TODO, payload: todo})
 
         setTodo("")
     };

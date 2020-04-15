@@ -1,6 +1,12 @@
 import uuidv4 from 'uuid/v4'
 
-import { TOGGLE_TODO, REMOVE_TODO, ADD_TODO } from './constsnts';
+import {
+    TOGGLE_TODO,
+    REMOVE_TODO,
+    ADD_TODO,
+    UPDATE_TODO,
+    SET_CURRENT_TODO
+} from './constsnts';
 
 export const todosReducer = (state, action) => {
 
@@ -36,6 +42,24 @@ export const todosReducer = (state, action) => {
             return {
                 ...state,
                 todos: filteredTodos
+            };
+        case SET_CURRENT_TODO:
+            return {
+                ...state,
+                currentTodo: action.payload
+            };
+        case UPDATE_TODO:
+            const updatedTodo = { ...state.currentTodo, text: action.payload };
+            const updatedTodoIndex = state.todos.findIndex(todo => todo.id === state.currentTodo.id);
+            const updatedTodos = [
+                ...state.todos.slice(0, updatedTodoIndex),
+                updatedTodo,
+                ...state.todos.slice(updatedTodoIndex + 1)
+            ];
+            return {
+                ...state,
+                currentTodo: {},
+                todos: updatedTodos
             };
         default:
             return state
