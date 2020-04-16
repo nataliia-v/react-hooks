@@ -1,4 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
+import axios from 'axios';
+import uuidv4 from 'uuid/v4'
 
 import {TodosContext} from "../../context";
 import { ADD_TODO, UPDATE_TODO } from '../../constsnts';
@@ -16,10 +18,15 @@ export const ToDoForm = () => {
         }
     }, [currentTodo.id]);
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
 
-        currentTodo.text ? dispatch({type: UPDATE_TODO, payload: todo}) : dispatch({type: ADD_TODO, payload: todo})
+        if (currentTodo.text){
+            dispatch({type: UPDATE_TODO, payload: todo})
+        } else {
+            const response = await axios.post("https://hooks-api-gamma.now.sh/todos", { id: uuidv4(), text: todo, complete: false});
+            dispatch({type: ADD_TODO, payload: response.data})
+        }
 
         setTodo("")
     };

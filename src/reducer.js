@@ -1,4 +1,3 @@
-import uuidv4 from 'uuid/v4'
 
 import {
     TOGGLE_TODO,
@@ -14,19 +13,15 @@ export const todosReducer = (state, action) => {
     switch (action.type) {
 
         case ADD_TODO:
-            if (!action.payload || state.todos.findIndex(todo => todo.text === action.payload) > -1) {
-                return state
-            }
+            // if (!action.payload || state.todos.findIndex(todo => todo.text === action.payload) > -1) {
+            //     return state
+            // }
 
-            const newTodo = {
-                id: uuidv4(),
-                text: action.payload,
-                complete: false
-            };
+            const addedTodos = [...state.todos, action.payload];
 
             return {
                 ...state,
-                todos: [...state.todos, newTodo]
+                todos: addedTodos
             };
 
         case TOGGLE_TODO:
