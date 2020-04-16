@@ -5,7 +5,8 @@ import {
     REMOVE_TODO,
     ADD_TODO,
     UPDATE_TODO,
-    SET_CURRENT_TODO
+    SET_CURRENT_TODO,
+    GET_TODOS
 } from './constsnts';
 
 export const todosReducer = (state, action) => {
@@ -68,6 +69,12 @@ export const todosReducer = (state, action) => {
                 ...state,
                 currentTodo: {},
                 todos: updatedTodos
+            };
+
+        case GET_TODOS:
+            return {
+                ...state,
+                todos: action.payload,
             };
         default:
             return state

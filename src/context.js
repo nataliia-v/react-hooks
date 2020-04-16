@@ -8,3 +8,6 @@ export const TodosContext = React.createContext({
     ],
     currentTodo: {}
 });
+
+// deployed url
+// https://hooks-api-gamma.now.sh/todos
