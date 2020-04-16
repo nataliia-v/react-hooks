@@ -16,7 +16,10 @@ export default function ToDoList () {
                 {state.todos.map(todo => (
                     <li className="bg-orange-dark flex items-center border-black border-dashed border-2 my-2 py-4" key={todo.id}>
                         <span
-                            onDoubleClick={()=> dispatch({type: TOGGLE_TODO, payload: todo})}
+                            onDoubleClick={async ()=> {
+                                const response = await axios.patch(`https://hooks-api-gamma.now.sh/todos/${todo.id}`, {complete: !todo.complete});
+                                dispatch({type: TOGGLE_TODO, payload: response.data})
+                            }}
                             className={`flex-1 ml-12 ${todo.complete && "line-through text-grey-darkest"}`}
                         >
                             {todo.text}
