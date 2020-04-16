@@ -50,10 +50,10 @@ export const todosReducer = (state, action) => {
                 currentTodo: action.payload
             };
         case UPDATE_TODO:
-            if (!action.payload || state.todos.findIndex(todo => todo.text === action.payload) > -1) {
-                return state
-            }
-            const updatedTodo = { ...state.currentTodo, text: action.payload };
+            // if (!action.payload || state.todos.findIndex(todo => todo.text === action.payload) > -1) {
+            //     return state
+            // }
+            const updatedTodo = { ...action.payload };
             const updatedTodoIndex = state.todos.findIndex(todo => todo.id === state.currentTodo.id);
             const updatedTodos = [
                 ...state.todos.slice(0, updatedTodoIndex),
